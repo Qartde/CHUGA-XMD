@@ -21,12 +21,12 @@
 --------	 
 1.  #### DEPLOY IN HEROKU 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new-app?template=https://github.com/chugastan/CHUGA-XMD-)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new-app?template=https://github.com/chugastanchugaman-lgtm/CHUGA-XMD)
 
 --------
 2.  #### DEPLOY IN REPLIT
 
-   <a href='https://repl.it/github.com/chugastan/CHUGA-XMD-' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-REPLIT-orange?style=for-the-badge&logo=replit&logoColor=white'/></a>
+   <a href='https://repl.it/github.com/chugastanchugaman-lgtm/CHUGA-XMD' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-REPLIT-orange?style=for-the-badge&logo=replit&logoColor=white'/></a>
 
 --------
 
