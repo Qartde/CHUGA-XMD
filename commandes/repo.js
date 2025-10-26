@@ -11,7 +11,7 @@ zokou(
     nomFichier: __filename 
   },
   async (dest, zk, commandeOptions) => {
-    const githubRepo = "https://api.github.com/repos/chugastan/CHUGA-XMD-";
+    const githubRepo = "https://api.github.com/repos/chugastanchugaman-lgtm/CHUGA-XMD";
     const img = "https://files.catbox.moe/ety154.jpg";
 
     try {
