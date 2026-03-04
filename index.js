@@ -121,9 +121,23 @@ if (conf.AUTOREACT_STATUS=== "yes") {
         for (const message of messages) {
             if (message.key && message.key.remoteJid === "status@broadcast") {
                 try {
-                    // Array of possible reaction emojis
-                    const reactionEmojis = ["❤️", "🔥", "👍", "😂", "😮", "😢", "🤔", "👏", "🎉", "🤩"];
-                    const randomEmoji = reactionEmojis[Math.floor(Math.random() * reactionEmojis.length)];
+               // Replace the status reaction code with this:
+
+if (conf.AUTO_REACT_STATUS === "yes") {
+    zk.ev.on("messages.upsert", async (m) => {
+        const { messages } = m;
+        
+        for (const message of messages) {
+            if (message.key && message.key.remoteJid === "status@broadcast") {
+                try {
+                    // Array of possible reaction emojis (optional - tumia moja au mchanganyiko)
+                    const reactionEmojis = ["💚", "❤️", "🔥", "👍", "😍", "👏", "💯", "✨"];
+                    
+                    // Kama unataka 💚 pekee, tumia hii:
+                    const reactionEmoji = "💚";
+                    
+                    // Kama unataka random kati ya hizo, tumia hii:
+                    // const randomEmoji = reactionEmojis[Math.floor(Math.random() * reactionEmojis.length)];
                     
                     // Mark as read first
                     await zk.readMessages([message.key]);
@@ -131,20 +145,21 @@ if (conf.AUTOREACT_STATUS=== "yes") {
                     // Wait a moment
                     await new Promise(resolve => setTimeout(resolve, 500));
                     
-                    // React to status
+                    // React to status with 💚
                     await zk.sendMessage(message.key.remoteJid, {
                         react: {
-                            text: randomEmoji,
+                            text: "💚",  // 💚 emoji - BADILISHA UKITAKA
                             key: message.key
                         }
                     });
                     
-                    console.log(`Reacted to status from ${message.key.participant} with ${randomEmoji}`);
+                    console.log(`✅ Reacted to status from ${message.key.participant} with 💚`);
                     
-                    // Delay between reactions
+                    // Small delay between reactions
                     await new Promise(resolve => setTimeout(resolve, 3000));
+                    
                 } catch (error) {
-                    console.error("Status reaction failed:", error);
+                    console.error("❌ Status reaction failed:", error);
                 }
             }
         }
