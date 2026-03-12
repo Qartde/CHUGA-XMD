@@ -1,37 +1,66 @@
 const { zokou } = require("../framework/zokou");
-const fs = require("fs-extra");
+const fs = require('fs-extra');
+const path = require('path');
 
-const configPath = './bdd/antidelete.json';
-
-// Create config if not exists
-if (!fs.existsSync('./bdd')) fs.mkdirSync('./bdd');
-if (!fs.existsSync(configPath)) {
-    fs.writeFileSync(configPath, JSON.stringify({ status: "off" }, null, 2));
-}
+const configPath = path.join(__dirname, '../set.json');
 
 zokou({
-    nomCom: "antidelete",
-    categorie: "General",
-    reaction: "🗑️",
-    desc: "Enable/disable anti-delete",
-    fromMe: true
+  nomCom: "antidelete",
+  categorie: "Owner",
+  reaction: "🛡️"
 }, async (dest, zk, commandeOptions) => {
-    const { repondre, arg, superUser } = commandeOptions;
-
-    if (!superUser) {
-        return repondre("❌ *Only owner can use this command!*");
-    }
-
-    if (!arg[0] || !["on", "off"].includes(arg[0].toLowerCase())) {
-        return repondre("*❗ Usage:* .antidelete on | off");
-    }
-
-    const status = arg[0].toLowerCase();
-    fs.writeFileSync(configPath, JSON.stringify({ status }, null, 2));
+  const { arg, repondre, superUser } = commandeOptions;
+  
+  if (!superUser) {
+    return repondre("❌ This command is only for the bot owner!");
+  }
+  
+  const action = arg[0]?.toLowerCase();
+  
+  if (!action || (action !== 'on' && action !== 'off')) {
+    return repondre(`╭━━━ *『 ANTI-DELETE 』* ━━━╮
+┃
+┃ Usage: .antidelete [on/off]
+┃
+┃ Example:
+┃ • .antidelete on  - Enable
+┃ • .antidelete off - Disable
+┃
+┃ Current Status: ${global.antideleteStatus ? '✅ ON' : '❌ OFF'}
+┃
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
+  }
+  
+  try {
+    // Update global variable
+    global.antideleteStatus = action === 'on';
     
-    if (status === "on") {
-        await repondre(`✅ *ANTIDELETE ENABLED*\n\nDeleted messages will be sent to owner.`);
-    } else {
-        await repondre(`⚠️ *ANTIDELETE DISABLED*`);
+    // Try to update config file if it exists
+    try {
+      if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        config.ANTI_DELETE_MESSAGE = action === 'on' ? 'yes' : 'no';
+        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+      }
+    } catch (e) {
+      console.log("Config update error:", e);
     }
+    
+    const status = action === 'on' ? '✅ ENABLED' : '❌ DISABLED';
+    const message = `╭━━━ *『 ANTI-DELETE 』* ━━━╮
+┃
+┃ 🛡️ Status: ${status}
+┃
+┃ ${action === 'on' ? 
+   '✓ Deleted messages will be captured\n✓ Sent to owner automatically' : 
+   '✗ Deleted messages will be ignored'}
+┃
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯`;
+    
+    await repondre(message);
+    
+  } catch (error) {
+    console.error("Antidelete error:", error);
+    repondre("❌ Error updating anti-delete status.");
+  }
 });
