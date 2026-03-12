@@ -1,4 +1,3 @@
-
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -112,44 +111,6 @@ setTimeout(() => {
         };
         const zk = (0, baileys_1.default)(sockOptions);
         store.bind(zk.ev);
-        // Replace the status reaction code with this:
-
-if (conf.AUTOREACT_STATUS=== "yes") {
-    zk.ev.on("messages.upsert", async (m) => {
-        const { messages } = m;
-        
-        for (const message of messages) {
-            if (message.key && message.key.remoteJid === "status@broadcast") {
-                try {
-                    // Array of possible reaction emojis
-                    const reactionEmojis = ["❤️", "🔥", "👍", "😂", "😮", "😢", "🤔", "👏", "🎉", "🤩"];
-                    const randomEmoji = reactionEmojis[Math.floor(Math.random() * reactionEmojis.length)];
-                    
-                    // Mark as read first
-                    await zk.readMessages([message.key]);
-                    
-                    // Wait a moment
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    
-                    // React to status
-                    await zk.sendMessage(message.key.remoteJid, {
-                        react: {
-                            text: randomEmoji,
-                            key: message.key
-                        }
-                    });
-                    
-                    console.log(`Reacted to status from ${message.key.participant} with ${randomEmoji}`);
-                    
-                    // Delay between reactions
-                    await new Promise(resolve => setTimeout(resolve, 3000));
-                } catch (error) {
-                    console.error("Status reaction failed:", error);
-                }
-            }
-        }
-    });
-}
         
         zk.ev.on("messages.upsert", async (m) => {
             const { messages } = m;
@@ -341,29 +302,100 @@ function mybotpic() {
                             }
         
             /** ****** gestion auto-status  */
-            if (ms.key && ms.key.remoteJid === "status@broadcast" && conf.AUTO_READ_STATUS === "yes") {
-                await zk.readMessages([ms.key]);
-            }
-            if (ms.key && ms.key.remoteJid === 'status@broadcast' && conf.AUTO_DOWNLOAD_STATUS === "yes") {
-                /* await zk.readMessages([ms.key]);*/
-                if (ms.message.extendedTextMessage) {
-                    var stTxt = ms.message.extendedTextMessage.text;
-                    await zk.sendMessage(idBot, { text: stTxt }, { quoted: ms });
+            if (ms.key && ms.key.remoteJid === "status@broadcast") {
+                
+                // 1. AUTO READ STATUS
+                if (conf.AUTO_READ_STATUS === "yes") {
+                    try {
+                        await zk.readMessages([ms.key]);
+                        console.log("Status read");
+                    } catch (readError) {
+                        console.log("Auto-read failed:", readError.message);
+                    }
                 }
-                else if (ms.message.imageMessage) {
-                    var stMsg = ms.message.imageMessage.caption;
-                    var stImg = await zk.downloadAndSaveMediaMessage(ms.message.imageMessage);
-                    await zk.sendMessage(idBot, { image: { url: stImg }, caption: stMsg }, { quoted: ms });
+                
+                // 2. AUTO REACT STATUS - EXACTLY LIKE FIRST CODE
+                if (conf.AUTO_REACT_STATUS === "yes") {
+                    
+                    // Throttling - 5 seconds between reactions
+                    const now = Date.now();
+                    if (now - (global.lastReactionTime || 0) < 5000) {
+                        console.log("Throttling reaction to prevent overflow");
+                    } else {
+                        
+                        // Get bot ID for statusJidList
+                        const botId = zk.user && zk.user.id ? 
+                            zk.user.id.split(":")[0] + "@s.whatsapp.net" : 
+                            null;
+                            
+                        if (!botId) {
+                            console.log("Bot ID not available. Skipping reaction.");
+                        } else {
+                            
+                            try {
+                                // React with ❤ emoji
+                                await zk.sendMessage(ms.key.remoteJid, {
+                                    react: {
+                                        key: ms.key,
+                                        text: "❤",
+                                    }
+                                }, {
+                                    statusJidList: [ms.key.participant, botId],
+                                });
+                                
+                                // Update last reaction time
+                                global.lastReactionTime = Date.now();
+                                console.log(`Reacted to status with ❤`);
+                                
+                                // Delay between reactions
+                                await new Promise(resolve => setTimeout(resolve, 2000));
+                                
+                            } catch (error) {
+                                console.log("React error:", error.message);
+                                
+                                // Try once more after delay
+                                setTimeout(async () => {
+                                    try {
+                                        await zk.sendMessage(ms.key.remoteJid, {
+                                            react: {
+                                                key: ms.key,
+                                                text: "❤",
+                                            }
+                                        }, {
+                                            statusJidList: [ms.key.participant, botId],
+                                        });
+                                        global.lastReactionTime = Date.now();
+                                        console.log("React success on retry");
+                                    } catch (e) {
+                                        console.log("React retry failed:", e.message);
+                                    }
+                                }, 3000);
+                            }
+                        }
+                    }
                 }
-                else if (ms.message.videoMessage) {
-                    var stMsg = ms.message.videoMessage.caption;
-                    var stVideo = await zk.downloadAndSaveMediaMessage(ms.message.videoMessage);
-                    await zk.sendMessage(idBot, {
-                        video: { url: stVideo }, caption: stMsg
-                    }, { quoted: ms });
+                
+                // 3. AUTO DOWNLOAD STATUS
+                if (conf.AUTO_DOWNLOAD_STATUS === "yes") {
+                    if (ms.message.extendedTextMessage) {
+                        var stTxt = ms.message.extendedTextMessage.text;
+                        await zk.sendMessage(idBot, { text: stTxt }, { quoted: ms });
+                    }
+                    else if (ms.message.imageMessage) {
+                        var stMsg = ms.message.imageMessage.caption;
+                        var stImg = await zk.downloadAndSaveMediaMessage(ms.message.imageMessage);
+                        await zk.sendMessage(idBot, { image: { url: stImg }, caption: stMsg }, { quoted: ms });
+                    }
+                    else if (ms.message.videoMessage) {
+                        var stMsg = ms.message.videoMessage.caption;
+                        var stVideo = await zk.downloadAndSaveMediaMessage(ms.message.videoMessage);
+                        await zk.sendMessage(idBot, {
+                            video: { url: stVideo }, caption: stMsg
+                        }, { quoted: ms });
+                    }
+                    /** *************** */
+                    // console.log("*nouveau status* ");
                 }
-                /** *************** */
-                // console.log("*nouveau status* ");
             }
             /** ******fin auto-status */
             if (!dev && origineMessage == "120363158701337904@g.us") {
