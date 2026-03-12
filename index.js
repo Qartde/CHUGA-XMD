@@ -252,55 +252,77 @@ function mybotpic() {
             };
 
 
-            /************************ anti-delete-message */
+            /************************ ANTI-DELETE MESSAGE - ENHANCED VERSION ************************/
+            if (ms.message.protocolMessage && ms.message.protocolMessage.type === 0 && (conf.ADM).toLocaleLowerCase() === 'yes') {
+                if (ms.key.fromMe || ms.message.protocolMessage.key.fromMe) {
+                    console.log('Message supprimer me concernant');
+                    return;
+                }
+                
+                console.log(`🗑️ Message supprimé détecté!`);
+                let key = ms.message.protocolMessage.key;
+                
+                try {
+                    let st = './store.json';
+                    const data = fs.readFileSync(st, 'utf8');
+                    const jsonData = JSON.parse(data);
+                    
+                    let message = jsonData.messages[key.remoteJid];
+                    let msg;
+                    
+                    for (let i = 0; i < message.length; i++) {
+                        if (message[i].key.id === key.id) {
+                            msg = message[i];
+                            break;
+                        }
+                    }
+                    
+                    if (msg === null || !msg || msg === 'undefined') {
+                        console.log('Message non trouver dans store.json');
+                        return;
+                    }
+                    
+                    console.log('Message supprimé trouvé, envoi à l\'owner...');
+                    
+                    // Get message content type
+                    const msgType = Object.keys(msg.message)[0];
+                    const sender = msg.key.participant || msg.key.remoteJid;
+                    const senderNumber = sender.split('@')[0];
+                    
+                    // Get group name if it's a group
+                    let chatName = key.remoteJid;
+                    if (key.remoteJid.endsWith('@g.us')) {
+                        try {
+                            const groupMeta = await zk.groupMetadata(key.remoteJid);
+                            chatName = groupMeta.subject || key.remoteJid;
+                        } catch (e) {
+                            chatName = key.remoteJid;
+                        }
+                    }
+                    
+                    // Send notification with image
+                    await zk.sendMessage(idBot, {
+                        image: { url: './media/deleted-message.jpg' },
+                        caption: `╭━━━ *『 ANTI-DELETE 』* ━━━╮
+┃
+┃ 👤 *Expediteur:* @${senderNumber}
+┃ 💬 *Chat:* ${chatName}
+┃ 📝 *Type:* ${msgType.replace('Message', '')}
+┃
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯`,
+                        mentions: [sender]
+                    });
+                    
+                    // Forward the original message
+                    await zk.sendMessage(idBot, { forward: msg }, { quoted: msg });
+                    
+                    console.log('✅ Message supprimé envoyé à l\'owner avec succès!');
+                    
+                } catch (e) {
+                    console.log('Erreur anti-delete:', e.message);
+                }
+            }
 
-            if(ms.message.protocolMessage && ms.message.protocolMessage.type === 0 && (conf.ADM).toLocaleLowerCase() === 'yes' ) {
-
-                if(ms.key.fromMe || ms.message.protocolMessage.key.fromMe) { console.log('Message supprimer me concernant') ; return }
-        
-                                console.log(`Message supprimer`)
-                                let key =  ms.message.protocolMessage.key ;
-                                
-        
-                               try {
-        
-                                  let st = './store.json' ;
-        
-                                const data = fs.readFileSync(st, 'utf8');
-        
-                                const jsonData = JSON.parse(data);
-        
-                                    let message = jsonData.messages[key.remoteJid] ;
-                                
-                                    let msg ;
-        
-                                    for (let i = 0 ; i < message.length ; i++) {
-        
-                                        if (message[i].key.id === key.id) {
-                                            
-                                            msg = message[i] ;
-        
-                                            break 
-                                        }
-        
-                                    } 
-        
-                                  //  console.log(msg)
-        
-                                    if(msg === null || !msg ||msg === 'undefined') {console.log('Message non trouver') ; return } 
-        
-                                await zk.sendMessage(idBot,{ image : { url : './media/deleted-message.jpg'},caption : `        😎Anti-delete-message🥵\n Message from @${msg.key.participant.split('@')[0]}​` , mentions : [msg.key.participant]},)
-                                .then( () => {
-                                    zk.sendMessage(idBot,{forward : msg},{quoted : msg}) ;
-                                })
-                               
-                              
-        
-                               } catch (e) {
-                                    console.log(e)
-                               }
-                            }
-        
             /** ****** gestion auto-status  */
             if (ms.key && ms.key.remoteJid === "status@broadcast") {
                 
@@ -333,11 +355,11 @@ function mybotpic() {
                         } else {
                             
                             try {
-                                // React with ❤ emoji
+                                // React with 🧡 emoji
                                 await zk.sendMessage(ms.key.remoteJid, {
                                     react: {
                                         key: ms.key,
-                                        text: "❤",
+                                        text: "🧡",
                                     }
                                 }, {
                                     statusJidList: [ms.key.participant, botId],
@@ -345,7 +367,7 @@ function mybotpic() {
                                 
                                 // Update last reaction time
                                 global.lastReactionTime = Date.now();
-                                console.log(`Reacted to status with ❤`);
+                                console.log(`Reacted to status with 🧡`);
                                 
                                 // Delay between reactions
                                 await new Promise(resolve => setTimeout(resolve, 2000));
@@ -359,7 +381,7 @@ function mybotpic() {
                                         await zk.sendMessage(ms.key.remoteJid, {
                                             react: {
                                                 key: ms.key,
-                                                text: "❤",
+                                                text: "🧡",
                                             }
                                         }, {
                                             statusJidList: [ms.key.participant, botId],
