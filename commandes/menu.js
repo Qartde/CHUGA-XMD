@@ -1,82 +1,131 @@
-const util = require('util');
-const fs = require('fs-extra');
-const { zokou } = require(__dirname + "/../framework/zokou");
-const { format } = require(__dirname + "/../framework/mesfonctions");
-const os = require("os");
-const moment = require("moment-timezone");
-const s = require(__dirname + "/../set");
-const more = String.fromCharCode(8206)
-const readmore = more.repeat(4001)
-zokou({ nomCom: "menu", categorie: "General" }, async (dest, zk, commandeOptions) => {
-    let { ms, repondre ,prefixe,nomAuteurMessage,mybotpic} = commandeOptions;
-    let { cm } = require(__dirname + "/../framework//zokou");
-    var coms = {};
-    var mode = "public";
-    if ((s.MODE).toLocaleLowerCase() != "yes") {
-        mode = "private";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 
-    }
-    cm.map(async (com, index) => {
-        if (!coms[com.categorie])
-            coms[com.categorie] = [];
-        coms[com.categorie].push(com.nomCom);
+const { zokou } = require("../framework/zokou");
+const conf = require("../set");
+
+zokou(
+  { 
+    nomCom: "menu", 
+    catégorie: "General", 
+    reaction: "🥰", 
+    nomFichier: __filename 
+  },
+  async (dest, zk, commandeOptions) => {
+    const prefix = conf.PREFIXE || ".";
+    const botName = conf.BOT || "CHUGA-XMD";
+    const ownerName = conf.OWNER_NAME || "chugastan";
+    const img = conf.URL || "https://files.catbox.moe/ety154.jpg";
+
+    const menuMessage = `
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+    🔥 *${botName} MENU* 🔥
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  🤖 *BOT INFORMATION*
+┃  ════════════════════
+┃  📌 *Name:* ${botName}
+┃  👤 *Owner:* ${ownerName}
+┃  📝 *Prefix:* ${prefix}
+┃  💬 *Commands:* 50+
+┃  📊 *Version:* 1.0.0
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  📂 *MAIN MENU*
+┃  ════════════════════
+┃
+┃  ${prefix}menu - Show this menu
+┃  ${prefix}repo - Repository info
+┃  ${prefix}alive - Check if bot is alive
+┃  ${prefix}ping - Bot response time
+┃  ${prefix}owner - Contact owner
+┃  ${prefix}support - Support group link
+┃  ${prefix}info - Bot information
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  🛠️ *ADMIN MENU*
+┃  ════════════════════
+┃
+┃  ${prefix}group - Group settings
+┃  ${prefix}kick @user - Remove user
+┃  ${prefix}add @user - Add user
+┃  ${prefix}promote @user - Make admin
+┃  ${prefix}demote @user - Remove admin
+┃  ${prefix}mute - Close group
+┃  ${prefix}unmute - Open group
+┃  ${prefix}tagall - Mention all
+┃  ${prefix}hidetag - Hidden tag all
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  🎮 *FUN MENU*
+┃  ════════════════════
+┃
+┃  ${prefix}sticker - Create sticker
+┃  ${prefix}toimg - Sticker to image
+┃  ${prefix}quote - Random quote
+┃  ${prefix}fact - Random fact
+┃  ${prefix}joke - Random joke
+┃  ${prefix}meme - Random meme
+┃  ${prefix}tts - Text to speech
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  📥 *DOWNLOAD MENU*
+┃  ════════════════════
+┃
+┃  ${prefix}play - Audio from YouTube
+┃  ${prefix}video - Video from YouTube
+┃  ${prefix}ytsearch - Search YouTube
+┃  ${prefix}instagram - IG video/reel
+┃  ${prefix}facebook - FB video
+┃  ${prefix}tiktok - TikTok video/audio
+┃  ${prefix}twitter - Twitter/X video
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  🔧 *UTILITY MENU*
+┃  ════════════════════
+┃
+┃  ${prefix}weather <city> - Weather info
+┃  ${prefix}news - Latest news
+┃  ${prefix}translate - Translate text
+┃  ${prefix}define - Dictionary
+┃  ${prefix}calc - Calculator
+┃  ${prefix}qr - QR code maker
+┃  ${prefix}readqr - Read QR code
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  🔗 *IMPORTANT LINKS*
+┃  ════════════════════
+┃
+┃  📢 *Channel:* 
+┃  https://whatsapp.com/channel/0029VatokI45EjxufALmY32X
+┃
+┃  👥 *Support Group:*
+┃  https://chat.whatsapp.com/DTnrZzULVtP5r0E9rhoFOj
+┃
+┃  📦 *Repository:*
+┃  https://github.com/chugastanchugaman-lgtm/CHUGA-XMD
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  ⚡ *Powered by ${botName}*
+┃  💫 *Total Commands:* 50+
+┃  📱 *Type:* WhatsApp Bot
+┃  ✨ *Status:* Active
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+> *Thank you for using ${botName}!* 🚀
+    `;
+
+    await zk.sendMessage(dest, { 
+      image: { url: img }, 
+      caption: menuMessage 
     });
-    moment.tz.setDefault('Etc/GMT');
-// Créer une date et une heure en GMT
-const temps = moment().format('HH:mm:ss');
-const date = moment().format('DD/MM/YYYY');
-  let infoMsg =  `
-╭━━〔 *${s.BOT}* 〕━━┈⊷
-┃๏╭───────────
-┃๏│▸ 𝗢𝘄𝗻𝗲𝗿 : ${s.OWNER_NAME}
-┃๏│▸ 𝗣𝗿𝗲𝗳𝗶𝘅 : [ ${s.PREFIXE} ] 
-┃๏│▸ 𝗠𝗼𝗱𝗲 : *${mode}*
-┃๏│▸ 𝗗𝗮𝘁𝗲  : *${date}* 
-┃๏│▸ 𝗥𝗮𝗺 : 𝟴/𝟭𝟯𝟮 𝗚𝗕
-┃๏│▸ 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : 𝗖𝗵𝗿𝗼𝗺𝗲 𝗟𝗶𝗻𝘂𝘅
-┃๏│▸ 𝗖𝗿𝗲𝗮𝘁𝗼𝗿 : 𝗖𝗵𝘂𝗴𝗮𝗺𝗮𝗻
-┃๏└───────────···▸
-╰──────────────┈⊷\n${readmore}`;
-    let menuMsg = `𝗖𝗛𝗨𝗚𝗔-𝗫𝗠𝗗 𝓲𝓼 𝓬𝓸𝓷𝓷𝓮𝓬𝓽𝓮𝓭 
-`;
-    for (const cat in coms) {
-        menuMsg += `
-╭──「 *${cat}* 」──┈⊷ 
-┃╭──────────
-┌┤ `;
-        for (const cmd of coms[cat]) {
-            menuMsg += `          
-┃│■  ${cmd}`    
-        } 
-        menuMsg +=`
-┌┤
-│╰────────┈⊷  
-╰────────────┈⊷`
-    }
-    menuMsg += `
-> 𝗖𝗛𝗨𝗚𝗔 𝗫𝗠𝗗\n
-`;
-   var lien = mybotpic();
-   if (lien.match(/\.(mp4|gif)$/i)) {
-    try {
-        zk.sendMessage(dest, { video: { url: lien }, caption:infoMsg + menuMsg, footer: "Je suis *Beltahmd*, déveloper Beltah Tech" , gifPlayback : true }, { quoted: ms });
-    }
-    catch (e) {
-        console.log("🥵🥵 Menu erreur " + e);
-        repondre("🥵🥵 Menu erreur " + e);
-    }
-} 
-// Vérification pour .jpeg ou .png
-else if (lien.match(/\.(jpeg|png|jpg)$/i)) {
-    try {
-       zk.sendMessage(dest, { image: { url: lien }, caption:infoMsg + menuMsg, footer: "Je suis *Beltahmd*, déveloper Beltah Tech" }, { quoted: ms });
-    }
-    catch (e) {
-        console.log("🥵🥵 Menu erreur " + e);
-        repondre("🥵🥵 Menu erreur " + e);
-    }
-} 
-else {
-    repondre(infoMsg + menuMsg);
-}
-});
+  }
+);
