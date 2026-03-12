@@ -1,141 +1,168 @@
 <div align="center">
-  <img src="https://files.catbox.moe/ety154.jpg" width="150" style="border-radius: 50%; border: 4px solid #ff6b6b;">
-  <h1 style="font-size: 3em; margin: 10px 0; color: #ff6b6b;">CHUGA-XMD</h1>
-  <p><strong>⚡ The Future of WhatsApp Bots ⚡</strong></p>
   
-  <div style="margin: 20px 0;">
-    <img src="https://img.shields.io/badge/version-2.0.0-ff6b6b?style=flat-square">
-    <img src="https://img.shields.io/badge/node-18%2B-339933?style=flat-square&logo=node.js">
-    <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square">
-  </div>
+  # ⚡ **CHUGA-XMD** ⚡
+  
+  <img src="https://files.catbox.moe/ety154.jpg" width="250" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+  
+  <br>
+  
+  ### 🚀 **The Ultimate WhatsApp Bot** 🚀
+  
+  <p>
+    <img src="https://img.shields.io/badge/version-2.0.0-6A0DAD?style=for-the-badge&logo=github">
+    <img src="https://img.shields.io/badge/node-18%2B-339933?style=for-the-badge&logo=node.js">
+    <img src="https://img.shields.io/badge/license-MIT-FF6B6B?style=for-the-badge">
+  </p>
+  
+  <p>
+    <a href="#-features"><img src="https://img.shields.io/badge/✨-Features-6A0DAD?style=for-the-badge"></a>
+    <a href="#-installation"><img src="https://img.shields.io/badge/📦-Installation-339933?style=for-the-badge"></a>
+    <a href="#-commands"><img src="https://img.shields.io/badge/📱-Commands-FF6B6B?style=for-the-badge"></a>
+    <a href="#-deploy"><img src="https://img.shields.io/badge/🚀-Deploy-000000?style=for-the-badge"></a>
+  </p>
+  
 </div>
 
 ---
 
-<!-- WAVE DIVIDER -->
+## 🎯 **OVERVIEW**
+
 <div align="center">
-  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png" width="100%">
+  
+  | | | |
+  |---|---|---|
+  | **150+ Commands** | **10k+ Users** | **24/7 Uptime** |
+  | **Multi-Device** | **Easy Setup** | **Free Updates** |
+  
 </div>
 
-## 🌟 **PREVIEW**
+**CHUGA-XMD** is a powerful, feature-rich WhatsApp bot designed to make group management fun and easy. With over 150 commands, it handles everything from anti-link protection to music downloads.
+
+---
+
+## ✨ **FEATURES**
 
 <div align="center">
+  
+  ### 🛡️ **PROTECTION**
+  
   <table>
     <tr>
+      <td align="center" width="200">
+        <h3>🔗</h3>
+        <b>Anti-Link</b>
+        <br>
+        <sub>Auto delete links</sub>
+      </td>
+      <td align="center" width="200">
+        <h3>🗑️</h3>
+        <b>Anti-Delete</b>
+        <br>
+        <sub>Save deleted msgs</sub>
+      </td>
+      <td align="center" width="200">
+        <h3>🐛</h3>
+        <b>Anti-Bug</b>
+        <br>
+        <sub>Block harmful content</sub>
+      </td>
+    </tr>
+    <tr>
       <td align="center">
-        <img src="https://files.catbox.moe/ety154.jpg" width="200"><br>
-        <sub>Main Menu</sub>
+        <h3>🤖</h3>
+        <b>Anti-Bot</b>
+        <br>
+        <sub>Remove other bots</sub>
       </td>
       <td align="center">
-        <img src="https://files.catbox.moe/aktbgo.jpg" width="200"><br>
-        <sub>Music Player</sub>
+        <h3>📞</h3>
+        <b>Anti-Call</b>
+        <br>
+        <sub>Auto reject calls</sub>
       </td>
       <td align="center">
-        <img src="https://files.catbox.moe/zotx9t.jpg" width="200"><br>
-        <sub>Group Tools</sub>
+        <h3>⚠️</h3>
+        <b>Warn System</b>
+        <br>
+        <sub>3 strikes & out</sub>
       </td>
     </tr>
   </table>
-</div>
-
----
-
-## 🚀 **LIVE DEMO**
-
-<div align="center">
-  <a href="https://wa.me/255760164530">
-    <img src="https://img.shields.io/badge/Test%20Bot%20Now-25D366?style=for-the-badge&logo=whatsapp&logoColor=white">
-  </a>
-</div>
-
----
-
-## 📊 **STATS**
-
-<div align="center">
+  
+  ### 🎵 **MEDIA**
+  
   <table>
     <tr>
       <td align="center" width="200">
-        <h1>150+</h1>
-        <sub>Commands</sub>
+        <h3>🎧</h3>
+        <b>Play Music</b>
+        <br>
+        <sub>Download from YouTube</sub>
       </td>
       <td align="center" width="200">
-        <h1>10k+</h1>
-        <sub>Users</sub>
+        <h3>🎥</h3>
+        <b>Download Video</b>
+        <br>
+        <sub>Save videos</sub>
       </td>
       <td align="center" width="200">
-        <h1>500+</h1>
-        <sub>Groups</sub>
+        <h3>🖼️</h3>
+        <b>Sticker Maker</b>
+        <br>
+        <sub>Create stickers</sub>
       </td>
-      <td align="center" width="200">
-        <h1>24/7</h1>
-        <sub>Uptime</sub>
+    </tr>
+    <tr>
+      <td align="center">
+        <h3>📤</h3>
+        <b>URL Upload</b>
+        <br>
+        <sub>Upload to Catbox</sub>
+      </td>
+      <td align="center">
+        <h3>📸</h3>
+        <b>Take Screenshot</b>
+        <br>
+        <sub>Website preview</sub>
+      </td>
+      <td align="center">
+        <h3>🎵</h3>
+        <b>Spotify</b>
+        <br>
+        <sub>Download from Spotify</sub>
       </td>
     </tr>
   </table>
-</div>
-
----
-
-## 🎨 **FEATURES GALLERY**
-
-<div align="center">
   
-  ### 🛡️ **PROTECTION SUITE**
-  
-  | Feature | Description | Status |
-  |---------|-------------|--------|
-  | 🔗 Anti-Link | Delete unwanted links | ✅ Active |
-  | 🗑️ Anti-Delete | Save deleted messages | ✅ Active |
-  | 🐛 Anti-Bug | Block harmful content | ✅ Active |
-  | 🤖 Anti-Bot | Remove other bots | ✅ Active |
-  | 📞 Anti-Call | Auto reject calls | ✅ Active |
-  
-  ### 🎵 **MEDIA CENTER**
-  
-  | Feature | Description | Status |
-  |---------|-------------|--------|
-  | 🎧 Play Music | Download from YouTube | ✅ Active |
-  | 🎥 Download Video | Save videos | ✅ Active |
-  | 🖼️ Sticker Maker | Create stickers | ✅ Active |
-  | 📤 URL Uploader | Upload to Catbox | ✅ Active |
-  
-  ### 👥 **GROUP HUB**
-  
-  | Feature | Description | Status |
-  |---------|-------------|--------|
-  | ➕ Add Member | Add users to group | ✅ Active |
-  | ➖ Kick Member | Remove users | ✅ Active |
-  | 👑 Promote | Make admin | ✅ Active |
-  | 📢 TagAll | Mention everyone | ✅ Active |
-  
-</div>
-
----
-
-## ⚡ **QUICK START**
-
-<div align="center">
-  
-  ### 🚀 **ONE CLICK DEPLOY**
+  ### 👥 **GROUP**
   
   <table>
     <tr>
+      <td align="center" width="200">
+        <h3>➕</h3>
+        <b>Add Member</b>
+      </td>
+      <td align="center" width="200">
+        <h3>➖</h3>
+        <b>Kick Member</b>
+      </td>
+      <td align="center" width="200">
+        <h3>👑</h3>
+        <b>Promote</b>
+      </td>
+    </tr>
+    <tr>
       <td align="center">
-        <a href="https://dashboard.heroku.com/new-app?template=https://github.com/chugastanchugaman-lgtm/CHUGA-XMD">
-          <img src="https://www.herokucdn.com/deploy/button.svg" width="200">
-        </a>
+        <h3>📢</h3>
+        <b>TagAll</b>
       </td>
       <td align="center">
-        <a href="https://replit.com/github/chugastanchugaman-lgtm/CHUGA-XMD">
-          <img src="https://replit.com/badge/github/chugastanchugaman-lgtm/CHUGA-XMD" width="200">
-        </a>
+        <h3>👋</h3>
+        <b>Welcome</b>
       </td>
       <td align="center">
-        <a href="https://dashboard.render.com">
-          <img src="https://render.com/images/deploy-to-render-button.svg" width="200">
-        </a>
+        <h3>👋</h3>
+        <b>Goodbye</b>
       </td>
     </tr>
   </table>
@@ -146,20 +173,7 @@
 
 ## 📦 **INSTALLATION**
 
-<div align="left">
+<div align="center">
   
-  ```bash
-  # Clone the universe
-  git clone https://github.com/chugastan/CHUGA-XMD-.git
+  ### 📋 **Prerequisites**
   
-  # Enter the matrix
-  cd CHUGA-XMD-
-  
-  # Install dependencies
-  npm install
-  
-  # Configure your bot
-  cp config.example.js config.js
-  
-  # Launch 🚀
-  npm start
