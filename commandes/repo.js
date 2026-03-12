@@ -8,7 +8,7 @@ zokou(
   { 
     nomCom: "repo", 
     catégorie: "Général", 
-    reaction: "✅", 
+    reaction: "📁", 
     nomFichier: __filename 
   },
   async (dest, zk, commandeOptions) => {
@@ -20,68 +20,113 @@ zokou(
       const data = response.data;
 
       if (data) {
-        const repoInfo = {
-          stars: data.stargazers_count || 0,
-          forks: data.forks_count || 0,
-          lastUpdate: data.updated_at,
-          owner: data.owner?.login || "chugastan",
-        };
+        const stars = data.stargazers_count || 0;
+        const forks = data.forks_count || 0;
+        const owner = data.owner?.login || "chugastan";
+        const createdDate = new Date(data.created_at).toLocaleDateString("en-US");
+        const updatedDate = new Date(data.updated_at).toLocaleDateString("en-US");
 
-        const releaseDate = new Date(data.created_at).toLocaleDateString("en-GB");
-        const lastUpdateDate = new Date(data.updated_at).toLocaleDateString("en-GB");
+        const repoMessage = `
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+    🔥 *CHUGA-XMD REPOSITORY* 🔥
+╰━━━━━━━━━━━━━━━━━━━━━━╯
 
-        const gitdata = `
-╔══════════════════════════════❀
-         *✅ Welcome to 𝐂𝐇𝐔𝐆𝐀 𝐗𝐌𝐃 ✅*
-     📣 *Support our channel:* [WhatsApp Channel](https://whatsapp.com/channel/0029VatokI45EjxufALmY32X)
-     
-     *Channel 2:* 
-     https://whatsapp.com/channel/0029Vb3eLRU3QxS5CZHI131x
-╚══════════════════════════════❀
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  📂 *INFORMATION*
+┃  ════════════════════
+┃  📌 *Owner:* ${owner}
+┃  📅 *Created:* ${createdDate}
+┃  🔄 *Last Update:* ${updatedDate}
+┃  ⭐ *Stars:* ${stars}
+┃  🍴 *Forks:* ${forks}
+┃  📁 *Repository:* CHUGA-XMD
+╰━━━━━━━━━━━━━━━━━━━━━━╯
 
-╔══*📊 Repository Information*══╗
-🔗 *Repository Link:* ${data.html_url}
-📅 *Last Updated:* ${lastUpdateDate}
-⭐️ *Stars:* ${repoInfo.stars}
-🍴 *Forks:* ${repoInfo.forks}
-📆 *Release Date:* ${releaseDate}
-👤 *Owner:* ${repoInfo.owner}
-╚══════════════════════════════
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  🔗 *IMPORTANT LINKS*
+┃  ════════════════════
+┃  📎 *GitHub:* 
+┃  ${data.html_url}
+┃
+┃  📢 *WhatsApp Channel:* 
+┃  https://whatsapp.com/channel/0029VatokI45EjxufALmY32X
+┃
+┃  📢 *Channel 2:* 
+┃  https://whatsapp.com/channel/0029Vb3eLRU3QxS5CZHI131x
+╰━━━━━━━━━━━━━━━━━━━━━━╯
 
-         *🔥 𝑃𝑜𝑤𝑒𝑟𝑒𝑑 𝑏𝑦 𝐶𝐻𝑈𝐺𝐴 𝑋𝑀𝐷 🔥*
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  ✨ *DESCRIPTION*
+┃  ════════════════════
+┃  ${data.description || "Multi-functional WhatsApp Bot with many features"}
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  ⚡ *Powered by CHUGA-XMD*
+┃  💫 *Version:* 1.0.0
+┃  📱 *Type:* WhatsApp Bot
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+> *Thank you for using CHUGA-XMD!* 🚀
         `;
 
         await zk.sendMessage(dest, { 
           image: { url: img }, 
-          caption: gitdata 
-        });
-      } else {
-        await zk.sendMessage(dest, { 
-          text: "❌ Could not fetch repository data. Please try again later." 
+          caption: repoMessage 
         });
       }
     } catch (error) {
-      console.log("Error fetching repo data:", error.message);
+      console.log("Repo error:", error.message);
       
-      // Send fallback message if API fails
+      // Fallback message if API fails
+      const fallbackMessage = `
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+    🔥 *CHUGA-XMD REPOSITORY* 🔥
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  📂 *INFORMATION*
+┃  ════════════════════
+┃  📌 *Owner:* chugastan
+┃  📅 *Created:* 01/01/2024
+┃  🔄 *Last Update:* 12/03/2025
+┃  ⭐ *Stars:* ★★★★★
+┃  🍴 *Forks:* ∞
+┃  📁 *Repository:* CHUGA-XMD
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  🔗 *IMPORTANT LINKS*
+┃  ════════════════════
+┃  📎 *GitHub:* 
+┃  https://github.com/chugastanchugaman-lgtm/CHUGA-XMD
+┃
+┃  📢 *WhatsApp Channel:* 
+┃  https://whatsapp.com/channel/0029VatokI45EjxufALmY32X
+┃
+┃  📢 *Channel 2:* 
+┃  https://whatsapp.com/channel/0029Vb3eLRU3QxS5CZHI131x
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  ✨ *DESCRIPTION*
+┃  ════════════════════
+┃  Multi-functional WhatsApp Bot with 
+┃  many features and commands
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━━━━━━━━━━━━━━━━━━━━╮
+┃  ⚡ *Powered by CHUGA-XMD*
+┃  💫 *Version:* 1.0.0
+┃  📱 *Type:* WhatsApp Bot
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+> *Thank you for using CHUGA-XMD!* 🚀
+      `;
+
       await zk.sendMessage(dest, { 
-        text: `╔══════════════════════════════❀
-         *✅ Welcome to 𝐂𝐇𝐔𝐆𝐀 𝐗𝐌𝐃 ✅*
-     📣 Support our channel: [WhatsApp Channel](https://whatsapp.com/channel/0029VatokI45EjxufALmY32X)
-     
-     *Channel 2*
-     https://whatsapp.com/channel/0029Vb3eLRU3QxS5CZHI131x
-╚══════════════════════════════❀
-
-╔══*📊 Repository Information*══╗
-🔗 *Repository Link:* https://github.com/chugastanchugaman-lgtm/CHUGA-XMD
-📅 *Last Updated:* 2024
-⭐️ *Stars:* ★ ★ ★ ★ ★
-🍴 *Forks:* ∞
-👤 *Owner:* chugastan
-╚══════════════════════════════
-
-         *🔥 𝑃𝑜𝑤𝑒𝑟𝑒𝑑 𝑏𝑦 𝐶𝐻𝑈𝐺𝐴 𝑋𝑀𝐷 🔥*`
+        image: { url: img }, 
+        caption: fallbackMessage 
       });
     }
   }
