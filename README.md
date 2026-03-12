@@ -1,3 +1,74 @@
+<div align="center">
+  
+  # ⚡ **CHUGA-XMD** ⚡
+  
+  <img src="https://files.catbox.moe/ety154.jpg" width="250" style="border-radius: 20px;">
+  
+  <br>
+  
+  ### 🚀 **The Ultimate WhatsApp Bot** 🚀
+  
+  <br>
+  
+  <!-- STATS BUTTONS -->
+  <p>
+    <img src="https://img.shields.io/github/stars/chugastan/CHUGA-XMD-?style=for-the-badge&color=yellow&label=Stars">
+    <img src="https://img.shields.io/github/forks/chugastan/CHUGA-XMD-?style=for-the-badge&color=green&label=Forks">
+    <img src="https://img.shields.io/github/watchers/chugastan/CHUGA-XMD-?style=for-the-badge&color=blue&label=Watchers">
+  </p>
+  
+  <br>
+  
+</div>
+
+---
+
+## 📋 **TABLE OF CONTENTS**
+
+<div align="center">
+  
+  [![✨ Features](https://img.shields.io/badge/✨-Features-6A0DAD?style=for-the-badge)](##-features)
+  [![📦 Installation](https://img.shields.io/badge/📦-Installation-339933?style=for-the-badge)](##-installation)
+  [![📱 Commands](https://img.shields.io/badge/📱-Commands-FF6B6B?style=for-the-badge)](##-commands)
+  [![🚀 Deployment](https://img.shields.io/badge/🚀-Deployment-000000?style=for-the-badge)](##-deployment-buttons)
+  [![🔑 Session](https://img.shields.io/badge/🔑-Session-FFA500?style=for-the-badge)](##-get-session-id)
+  [![📢 Channel](https://img.shields.io/badge/📢-Channel-25D366?style=for-the-badge)](##-join-our-channel)
+  
+</div>
+
+---
+
+## ✨ **FEATURES**
+
+<div align="center">
+  
+  | 🛡️ Protection | 🎵 Media | 👥 Group |
+  |:---:|:---:|:---:|
+  | Anti-Link | Play Music | Add Member |
+  | Anti-Delete | Download Video | Kick Member |
+  | Anti-Bug | Sticker Maker | Promote |
+  | Anti-Bot | URL Upload | Demote |
+  | Anti-Call | Screenshot | TagAll |
+  | Warn System | Spotify Download | Welcome/Goodbye |
+  
+</div>
+
+---
+
+## 📦 **INSTALLATION**
+
+<div align="center">
+  
+  ### **Prerequisites**
+  
+
+
+
+
+
+
+
+
 
 🚀 DEPLOYMENT BUTTONS
 
