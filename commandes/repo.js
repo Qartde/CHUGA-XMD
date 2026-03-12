@@ -3,130 +3,85 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 const { zokou } = require("../framework/zokou");
 const axios = require("axios");
+const conf = require("../set");
 
 zokou(
   { 
     nomCom: "repo", 
-    catégorie: "Général", 
+    categorie: "General", 
     reaction: "📁", 
     nomFichier: __filename 
   },
   async (dest, zk, commandeOptions) => {
-    const githubRepo = "https://api.github.com/repos/chugastan/CHUGA-XMD";
-    const img = "https://files.catbox.moe/ety154.jpg";
-
+    
     try {
-      const response = await axios.get(githubRepo);
+      const response = await axios.get("https://api.github.com/repos/chugastan/CHUGA-XMD");
       const data = response.data;
+      const repoUrl = "https://github.com/chugastanchugaman-lgtm/CHUGA-XMD";
+      const channelUrl = "https://whatsapp.com/channel/0029VatokI45EjxufALmY32X";
 
-      if (data) {
-        const stars = data.stargazers_count || 0;
-        const forks = data.forks_count || 0;
-        const owner = data.owner?.login || "chugastan";
-        const createdDate = new Date(data.created_at).toLocaleDateString("en-US");
-        const updatedDate = new Date(data.updated_at).toLocaleDateString("en-US");
+      const repoMessage = `
+╭══════════════════════╮
+┃  🔥 *CHUGA-XMD REPO* 🔥
+╰══════════════════════╯
 
-        const repoMessage = `
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-    🔥 *CHUGA-XMD REPOSITORY* 🔥
-╰━━━━━━━━━━━━━━━━━━━━━━╯
+┌─── *INFORMATION* ───┐
+│ 👤 *Owner:* ${data.owner?.login || 'chugastan'}
+│ ⭐ *Stars:* ${data.stargazers_count || 0}
+│ 🍴 *Forks:* ${data.forks_count || 0}
+│ 📅 *Updated:* ${new Date(data.updated_at).toLocaleDateString()}
+└────────────────────┘
 
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  📂 *INFORMATION*
-┃  ════════════════════
-┃  📌 *Owner:* ${owner}
-┃  📅 *Created:* ${createdDate}
-┃  🔄 *Last Update:* ${updatedDate}
-┃  ⭐ *Stars:* ${stars}
-┃  🍴 *Forks:* ${forks}
-┃  📁 *Repository:* CHUGA-XMD
-╰━━━━━━━━━━━━━━━━━━━━━━╯
+┌─── *LINKS* ───┐
+│ 📎 *GitHub:* ${repoUrl}
+│ 📢 *Channel:* ${channelUrl}
+└────────────────────┘
 
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  🔗 *IMPORTANT LINKS*
-┃  ════════════════════
-┃  📎 *GitHub:* 
-┃  ${data.html_url}
-┃
-┃  📢 *WhatsApp Channel:* 
-┃  https://whatsapp.com/channel/0029VatokI45EjxufALmY32X
-┃
-┃  📢 *Channel 2:* 
-┃  https://whatsapp.com/channel/0029Vb3eLRU3QxS5CZHI131x
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  ✨ *DESCRIPTION*
-┃  ════════════════════
-┃  ${data.description || "Multi-functional WhatsApp Bot with many features"}
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  ⚡ *Powered by CHUGA-XMD*
-┃  💫 *Version:* 1.0.0
-┃  📱 *Type:* WhatsApp Bot
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-> *Thank you for using CHUGA-XMD!* 🚀
-        `;
-
-        await zk.sendMessage(dest, { 
-          image: { url: img }, 
-          caption: repoMessage 
-        });
-      }
-    } catch (error) {
-      console.log("Repo error:", error.message);
-      
-      // Fallback message if API fails
-      const fallbackMessage = `
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-    🔥 *CHUGA-XMD REPOSITORY* 🔥
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  📂 *INFORMATION*
-┃  ════════════════════
-┃  📌 *Owner:* chugastan
-┃  📅 *Created:* 01/01/2024
-┃  🔄 *Last Update:* 12/03/2025
-┃  ⭐ *Stars:* ★★★★★
-┃  🍴 *Forks:* ∞
-┃  📁 *Repository:* CHUGA-XMD
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  🔗 *IMPORTANT LINKS*
-┃  ════════════════════
-┃  📎 *GitHub:* 
-┃  https://github.com/chugastanchugaman-lgtm/CHUGA-XMD
-┃
-┃  📢 *WhatsApp Channel:* 
-┃  https://whatsapp.com/channel/0029VatokI45EjxufALmY32X
-┃
-┃  📢 *Channel 2:* 
-┃  https://whatsapp.com/channel/0029Vb3eLRU3QxS5CZHI131x
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  ✨ *DESCRIPTION*
-┃  ════════════════════
-┃  Multi-functional WhatsApp Bot with 
-┃  many features and commands
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  ⚡ *Powered by CHUGA-XMD*
-┃  💫 *Version:* 1.0.0
-┃  📱 *Type:* WhatsApp Bot
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-
-> *Thank you for using CHUGA-XMD!* 🚀
+> *⭐ Star the repo!*
+> *${conf.BOT || 'CHUGA-XMD'}* 🚀
       `;
 
       await zk.sendMessage(dest, { 
-        image: { url: img }, 
-        caption: fallbackMessage 
+        image: { url: conf.URL || "https://files.catbox.moe/ety154.jpg" }, 
+        caption: repoMessage,
+        contextInfo: {
+          externalAdReply: {
+            title: "⭐ CHUGA-XMD REPO",
+            body: `Stars: ${data.stargazers_count || 0} | Forks: ${data.forks_count || 0}`,
+            thumbnailUrl: conf.URL || "https://files.catbox.moe/ety154.jpg",
+            mediaType: 1,
+            sourceUrl: repoUrl,
+            showAdAttribution: true
+          }
+        }
+      });
+
+    } catch (error) {
+      const repoUrl = "https://github.com/chugastanchugaman-lgtm/CHUGA-XMD";
+      
+      await zk.sendMessage(dest, { 
+        image: { url: conf.URL || "https://files.catbox.moe/ety154.jpg" },
+        caption: `╭══════════════════════╮
+┃  🔥 *CHUGA-XMD REPO* 🔥
+╰══════════════════════╯
+
+┌─── *ERROR* ───┐
+│ ❌ GitHub API error
+│ 🔗 *Direct Link:* 
+│ ${repoUrl}
+└────────────────────┘
+
+> *${conf.BOT || 'CHUGA-XMD'}* 🚀`,
+        contextInfo: {
+          externalAdReply: {
+            title: "📁 CHUGA-XMD REPO",
+            body: "Click to visit GitHub",
+            thumbnailUrl: conf.URL || "https://files.catbox.moe/ety154.jpg",
+            mediaType: 1,
+            sourceUrl: repoUrl,
+            showAdAttribution: true
+          }
+        }
       });
     }
   }
