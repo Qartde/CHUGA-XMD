@@ -85,7 +85,7 @@ zokou(
             externalAdReply: {
                 title: "🔥 CHUGA XMD BOT",
                 body: `✨ ${date} ✨ ${time}`,
-                thumbnailUrl: "https://files.catbox.moe/ety154.jpg",
+                thumbnailUrl: "https://files.catbox.moe/pkp993.jpg",
                 sourceUrl: "https://github.com/chugastanchugaman-lgtm/CHUGA-XMD",
                 mediaType: 1,
                 renderLargerThumbnail: true,
