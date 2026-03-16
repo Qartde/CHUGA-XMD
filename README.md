@@ -2,7 +2,7 @@
   
   # ⚡ **CHUGA-XMD** ⚡
   
-  <img src="https://ibb.co/99pkTLLL" width="250" style="border-radius: 20px;">
+  <img src="https://files.catbox.moe/pkp993.jpg" width="250" style="border-radius: 20px;">
   
   <br>
   
